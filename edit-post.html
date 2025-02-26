@@ -11,16 +11,11 @@
       <h1>Edit Post</h1>
       <form action="/update-post" method="POST">
         <div class="form-group">
-          <label for="title">Title:</label>
-          <input type="text" id="title" name="title" required />
-        </div>
-        <div class="form-group">
-          <label for="content">Content:</label>
+          <label for="content">Updated Content:</label><br /><br />
           <textarea id="content" name="content" rows="10" required></textarea>
         </div>
         <div class="form-group">
-          <label for="tags">Tags:</label>
-          <input type="text" id="tags" name="tags" />
+          <input type="file" required />
         </div>
         <div class="form-group">
           <button type="submit">Update Post</button>
