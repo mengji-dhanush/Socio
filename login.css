@@ -61,7 +61,7 @@ body {
 }
 
 .container form button,
-.container .singup-btn {
+.container .signup-btn {
   width: 100%;
   padding: 10px;
   background-color: #444;
@@ -82,4 +82,10 @@ body {
 .container form button:hover {
   background-color: #555;
   transition: ease 0.3s;
+}
+.container form a {
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
 }

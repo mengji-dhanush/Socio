@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Your Account</title>
+    <link rel="stylesheet" href="signup.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Create your account</h1>
+      <img src="SocioLogo.png" alt="Logo" class="logo" />
+
+      <form id="signup-form" action="index.html" method="get">
+        <input type="text" placeholder="Name" required />
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="enter password" required />
+        <div class="dob">
+          <label for="dob">Date of birth</label>
+          <input type="date" name="dob" id="dob" required />
+        </div>
+        <button type="submit">Signup</button>
+        <h5>Already a Socion?</h5>
+        <button
+          type="button"
+          class="login-btn"
+          onclick="window.location.href='login.html'"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("signup-form")
+          .addEventListener("submit", function (event) {
+            if (!validateAge()) {
+              event.preventDefault();
+            }
+          });
+      });
+
+      function validateAge() {
+        let dobInput = document.getElementById("dob").value;
+
+        let dob = new Date(dobInput);
+        let today = new Date();
+
+        let age = today.getFullYear() - dob.getFullYear();
+
+        if (age < 18) {
+          alert("You must be at least 18 years old to sign up.");
+          return false;
+        }
+
+        return true;
+      }
+    </script>
+  </body>
+</html>
