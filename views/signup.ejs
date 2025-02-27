@@ -4,33 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create Your Account</title>
-    <link rel="stylesheet" href="signup.css" />
+    <link rel="stylesheet" href="/css/signup.css" />
   </head>
   <body>
     <div class="container">
       <h1>Create your account</h1>
-      <img src="SocioLogo.png" alt="Logo" class="logo" />
+      <img src="/utilities/SocioLogo.png" alt="Logo" class="logo" />
 
-      <form id="signup-form" action="index.html" method="get">
-        <input type="text" placeholder="Name" required />
-        <input type="email" placeholder="Email" required />
-        <input type="password" placeholder="enter password" required />
+      <form id="signup-form" action="index.html" method="post">
+        <input type="text" placeholder="Enter Name" required />
+        <input type="email" placeholder="Enter Email" required />
+        <input type="password" placeholder="Enter Password" required />
         <div class="dob">
           <label for="dob">Date of birth</label>
           <input type="date" name="dob" id="dob" required />
         </div>
-        <button type="submit">Signup</button>
-        <h5>Already a Socion?</h5>
-        <button
-          type="button"
-          class="login-btn"
-          onclick="window.location.href='login.html'"
-        >
-          Login
-        </button>
+        <button>Signup</button>
+      </form>
+      <h5>Already a Socion?</h5>
+      <form action="/login" method="get">
+        <button class="login-btn">Login</button>
       </form>
     </div>
-
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         document
