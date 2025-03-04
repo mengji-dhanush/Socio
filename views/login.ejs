@@ -7,14 +7,27 @@
     <link rel="stylesheet" href="/css/login.css" />
   </head>
   <body>
+    <% if(success && success.length){ %>
+      <div class="success">
+        <h3><%=success%></h3>
+      <% } %>
+      <% if(error && error.length){ %>
+        <div class="error">
+          <h3><%=error%></h3>
+        <% } %>
     <div class="container">
       <h1>Login</h1>
       <img src="/utilities/SocioLogo.png" alt="Logo" class="logo" />
 
       <form action="/login" method="post">
-        <input type="text" placeholder="Username" required />
-        <input type="password" placeholder="Password" required />
-        <button type="submit">Login</button>
+        <input type="text" placeholder="Username" name="username" required />
+        <input
+          type="password"
+          placeholder="Password"
+          name="password"
+          required
+        />
+        <button>Login</button>
       </form>
       <h5>Don't have an account?</h5>
       <form action="/signup" method="get">

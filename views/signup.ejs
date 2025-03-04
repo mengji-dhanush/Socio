@@ -7,18 +7,39 @@
     <link rel="stylesheet" href="/css/signup.css" />
   </head>
   <body>
+    <% if(success && success.length){ %>
+      <div class="success">
+        <h3><%=success%></h3>
+      <% } %>
+      <% if(error && error.length){ %>
+        <div class="error">
+          <h3><%=error%></h3>
+        <% } %>
     <div class="container">
       <h1>Create your account</h1>
       <img src="/utilities/SocioLogo.png" alt="Logo" class="logo" />
 
-      <form id="signup-form" action="index.html" method="post">
-        <input type="text" placeholder="Enter Name" required />
-        <input type="email" placeholder="Enter Email" required />
-        <input type="password" placeholder="Enter Password" required />
-        <div class="dob">
-          <label for="dob">Date of birth</label>
-          <input type="date" name="dob" id="dob" required />
-        </div>
+      <form
+        id="signup-form"
+        action="/signup"
+        method="post"
+      >
+        <input
+          type="text"
+          placeholder="Enter username"
+          name="username"
+          required
+        />
+        <input type="email" placeholder="Enter Email" name="email" required />
+        <input
+          type="password"
+          placeholder="Enter Password"
+          name="password"
+          required
+        />
+        <label for="dob">Date of birth</label>
+        <input type="date" name="dob" id="dob" required />
+
         <button>Signup</button>
       </form>
       <h5>Already a Socion?</h5>

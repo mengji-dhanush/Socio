@@ -4,17 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Socio-Create New Post</title>
-    <link rel="stylesheet" href="./create-new-post.css">
+    <link rel="stylesheet" href="/css/create-new-post.css">
   </head>
   <body>
+    <% if(success && success.length){ %>
+      <div class="success">
+        <h3><%=success%></h3>
+      <% } %>
+      <% if(error && error.length){ %>
+        <div class="error">
+          <h3><%=error%></h3>
+        <% } %>
     <div class="container">
-      
       <div class="form-container">
         <h1>Create New Post</h1>
-        <form method="POST">
+        <form method="POST" action="/new" enctype="multipart/form-data">
           <div class="form-group">
             <label for="image-upload">Upload Image:</label><br><br>
-            <input type="file" name="image-upload" id="image-upload" required>
+            <input type="file" name="postImage" id="image-upload" required>
             <label for="content">Content:</label><br><br>
             <textarea name="content" id="content" required rows="5" cols="50"></textarea>
             <button>Create</button>

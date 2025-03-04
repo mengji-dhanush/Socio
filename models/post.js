@@ -1,3 +1,4 @@
+const { required } = require("joi");
 const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema({
@@ -22,7 +23,7 @@ const postSchema = new mongoose.Schema({
       ref: "Comment",
     },
   ],
-  owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   category: {
     type: String,
     enum: [
@@ -37,6 +38,11 @@ const postSchema = new mongoose.Schema({
       "Other",
     ],
     required: true,
+    default: "Other",
+  },
+  likes: {
+    type: Number,
+    default: 0,
   },
 });
 

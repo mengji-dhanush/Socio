@@ -4,28 +4,41 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device--width, initial-scale=1.0" />
     <title>Login</title>
-    <link rel="stylesheet" href="profView.css" />
+    <link rel="stylesheet" href="/css/profView.css" />
   </head>
   <body>
+    <% if(success && success.length){ %>
+      <div class="success">
+        <h3><%=success%></h3>
+      <% } %>
+      <% if(error && error.length){ %>
+        <div class="error">
+          <h3><%=error%></h3>
+        <% } %>
     <div class="container">
       <h1>Profile</h1>
-      <img src="SocioLogo.png" alt="Logo" class="logo" />
+      <img src="/utilities/SocioLogo.png" alt="Logo" class="logo" />
       <div class="box">
+        <form action="/profile" method="post" enctype="multipart/form-data">
         <h4>Username</h4>
         <div class="username">
-          <h5>@random_girl</h5>
+          <h5>@<%= currUser.username %></h5>
         </div>
         <h4>E-mail</h4>
         <div class="mail">
-          <h5>scoobydooby@yandex.com</h5>
+          <h5><%=currUser.email%></h5>
         </div>
         <h4>Bio</h4>
         <textarea
           class="bio"
-          placeholder="This is my biooooooo......."
-        ></textarea>
+          placeholder="Add your bio here..."
+          name="bio"
+        ><%= currUser.bio %></textarea><br><br>
+        <h4>Upload Profile Picture</h4>
+        <input type="file" name="profilePhoto">
         <br /><br />
         <button class="btn" type="submit">Save Changes</button>
+      </form>
       </div>
     </div>
   </body>

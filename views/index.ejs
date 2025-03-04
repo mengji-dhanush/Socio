@@ -3,9 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Social Media Platform</title>
+    <title>Socio</title>
     <link rel="stylesheet" href="/css/style.css" />
-    <link href="style.css" rel="stylesheet" />
   </head>
   <body>
     <div class="nav">
@@ -14,24 +13,35 @@
         <h3>Socio</h3>
       </div>
       <div class="inner-nav-a">
-        <a href="./profile.html"
-          ><img
-            src="/utilities/profile.jpg"
+        <form action="/profile">
+          <button><img
+            src="<%= currUser.profilePhoto.url %>"
             alt="Profile Picture"
             class="profile-pic"
-        /></a>
-        <a href="./create-post.html">Create post</a>
-        <a href="landing_page.html"><h4>Logout</h4></a>
+        /></button>
+        </form>
+        <form action="/new"><button>Create New Post</button></form>
+        <form action="http://localhost:3000/logout">
+          <button>Logout</button>
+        </form>
       </div>
     </div>
+    <% if(success && success.length){ %>
+      <div class="success">
+        <h3><%=success%></h3>
+      <% } %>
+      <% if(error && error.length){ %>
+        <div class="error">
+          <h3><%=error%></h3>
+        <% } %>
     <div class="container">
       <h1>All Posts</h1>
       <% for(let post of allPosts) {%>
       <div class="post">
         <div class="post-header">
           <div class="profile">
-            <img src="/utilities/profile.jpg" alt="Profile Picture" />
-            <h3>@Abhishek_Ram</h3>
+            <img src="<%= post.owner.profilePhoto.url %>" alt="Profile Picture" />
+            <h3><%= post.owner.username %></h3>
           </div>
           <div class="dropdown">
             <button class="dropdown-btn" onclick="toggleMenu('menu1')">
@@ -45,7 +55,7 @@
           </div>
         </div>
         <div class="post-content">
-          <p>Look what I am having for my dinner!!</p>
+          <p><%= post.content %></p>
           <img src="<%=post.image.url%>" alt="Post Image" />
         </div>
         <div class="post-actions">
