@@ -5,6 +5,7 @@ const PORT = 3000;
 const express = require("express");
 const app = express();
 const path = require("path");
+const methodOverride = require("method-override");
 const mongoose = require("mongoose");
 const Post = require("./models/post.js");
 const session = require("express-session");
@@ -12,9 +13,9 @@ const flash = require("connect-flash");
 const ExpressError = require("./ExpressError.js");
 const multer = require("multer");
 const { storageProfiles, storagePosts } = require("./cloudConfig.js");
-const uploadProfiles = multer({ storage: storageProfiles }); // Corrected
-const uploadPosts = multer({ storage: storagePosts }); // Corrected
-const { isLoggedIn, saveRedirectUrl } = require("./middlewares.js");
+const uploadProfiles = multer({ storage: storageProfiles });
+const uploadPosts = multer({ storage: storagePosts });
+const { isLoggedIn, saveRedirectUrl, isOwner } = require("./middlewares.js");
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -48,6 +49,8 @@ app.use((req, res, next) => {
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "/public")));
+
+app.use(methodOverride("_method"));
 
 app.set("view engine", "ejs");
 app.set(path.join(__dirname, "views"));
@@ -143,12 +146,12 @@ app.post(
   }
 );
 
-app.get("/profile", isLoggedIn, (req, res) => {
-  res.render("profile.ejs");
+app.get("/editprofile", isLoggedIn, (req, res) => {
+  res.render("editProfile.ejs");
 });
 
 app.post(
-  "/profile",
+  "/editprofile",
   isLoggedIn,
   uploadProfiles.single("profilePhoto"),
   async (req, res) => {
@@ -166,9 +169,21 @@ app.post(
     }
     await user.save();
     req.flash("success", "profile updated successfully");
-    res.redirect("/profile");
+    res.redirect("/editprofile");
   }
 );
+
+app.delete("/deletepost/:id", isLoggedIn, isOwner, async (req, res) => {
+  try {
+    let { id } = req.params;
+    await Post.findByIdAndDelete(id);
+    req.flash("success", "post deleted successfully");
+    res.redirect("/posts");
+  } catch (err) {
+    req.flash("error", err.message);
+    res.redirect("/posts");
+  }
+});
 
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "page not found!"));

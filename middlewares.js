@@ -23,10 +23,10 @@ module.exports.saveRedirectUrl = (req, res, next) => {
 
 module.exports.isOwner = async (req, res, next) => {
   let { id } = req.params;
-  let listing = await Post.findById(id);
-  if (!listing.owner.equals(res.locals.currUser._id)) {
+  let post = await Post.findById(id);
+  if (!post.owner._id.equals(req.user._id) && !(req.user.role === "admin")) {
     req.flash("error", "you are not the owner of this listing");
-    return res.redirect(`/Post/${id}`);
+    return res.redirect("/posts");
   }
   next();
 };

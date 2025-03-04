@@ -13,7 +13,7 @@
         <h3>Socio</h3>
       </div>
       <div class="inner-nav-a">
-        <form action="/profile">
+        <form action="/editprofile">
           <button><img
             src="<%= currUser.profilePhoto.url %>"
             alt="Profile Picture"
@@ -44,15 +44,16 @@
             <h3><%= post.owner.username %></h3>
           </div>
           <div class="dropdown">
-            <button class="dropdown-btn" onclick="toggleMenu('menu1')">
+            <button class="dropdown-btn" onclick="toggleMenu('menu-<%= post._id %>')">
               &#8942;
             </button>
-            <div id="menu1" class="dropdown-content">
-              <a href="./edit-post.html">Edit Post</a>
-              <a href="#">Delete Post</a>
-              <a href="#">Share Post</a>
+            <div id="menu-<%= post._id %>" class="dropdown-content">
+              <form action="/editPost/<%= post._id %>" method="get"><button>Edit post</button></form>
+              <form action="/deletepost/<%= post._id %>?_method=DELETE" method="post">
+                <button>Delete Post</button>
+              </form>
             </div>
-          </div>
+          </div>          
         </div>
         <div class="post-content">
           <p><%= post.content %></p>
@@ -60,7 +61,7 @@
         </div>
         <div class="post-actions">
           <button>
-            <img src="/utilities/thumbs-up-icon.png" alt="Thumbs Up" />Like
+            <img src="/utilities/thumbs-up-icon.png" alt="Like" />Like
           </button>
           <button>
             <img src="/utilities/share-icon.png" alt="Share" /> Share
@@ -96,18 +97,20 @@
     <div class="footer">&copy; Socio</div>
     <script>
       function toggleMenu(id) {
-        document.getElementById(id).classList.toggle("show");
+  document.getElementById(id).classList.toggle("show");
+}
+
+window.onclick = function (event) {
+  if (!event.target.matches(".dropdown-btn")) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    for (var i = 0; i < dropdowns.length; i++) {
+      if (dropdowns[i].classList.contains("show")) {
+        dropdowns[i].classList.remove("show");
       }
-      window.onclick = function (event) {
-        if (!event.target.matches(".dropdown-btn")) {
-          var dropdowns = document.getElementsByClassName("dropdown-content");
-          for (var i = 0; i < dropdowns.length; i++) {
-            if (dropdowns[i].classList.contains("show")) {
-              dropdowns[i].classList.remove("show");
-            }
-          }
-        }
-      };
+    }
+  }
+};
+
       //dropdown doesnt work for all posts.(Id to all post is same)
     </script>
   </body>
