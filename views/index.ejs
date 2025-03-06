@@ -13,14 +13,14 @@
         <h3>Socio</h3>
       </div>
       <div class="inner-nav-a">
-        <form action="/editprofile">
+        <form action="/profile/edit" method="get">
           <button><img
             src="<%= currUser.profilePhoto.url %>"
             alt="Profile Picture"
             class="profile-pic"
         /></button>
         </form>
-        <form action="/new"><button>Create New Post</button></form>
+        <form action="/posts/new"><button>Create New Post</button></form>
         <form action="http://localhost:3000/logout">
           <button>Logout</button>
         </form>
@@ -48,8 +48,8 @@
               &#8942;
             </button>
             <div id="menu-<%= post._id %>" class="dropdown-content">
-              <form action="/editPost/<%= post._id %>" method="get"><button>Edit post</button></form>
-              <form action="/deletepost/<%= post._id %>?_method=DELETE" method="post">
+              <form action="/posts/edit/<%= post._id %>" method="get"><button>Edit post</button></form>
+              <form action="/posts/delete/<%= post._id %>?_method=DELETE" method="post">
                 <button>Delete Post</button>
               </form>
             </div>
@@ -76,7 +76,7 @@
             width: 100%;
           "
         >
-          <form action="">
+          <form action="/posts/:id" method="get">
             <input
               type="text"
               style="width: 90%; height: 25px"

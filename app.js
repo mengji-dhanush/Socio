@@ -124,12 +124,12 @@ app.get("/logout", isLoggedIn, (req, res) => {
   });
 });
 
-app.get("/new", isLoggedIn, (req, res) => {
+app.get("/posts/new", isLoggedIn, (req, res) => {
   res.render("createPost.ejs");
 });
 
 app.post(
-  "/new",
+  "/posts/new",
   isLoggedIn,
   uploadPosts.single("postImage"),
   async (req, res) => {
@@ -146,12 +146,51 @@ app.post(
   }
 );
 
-app.get("/editprofile", isLoggedIn, (req, res) => {
+app.get("/posts/:id", isLoggedIn, async (req, res) => {
+  let { id } = req.params;
+  let post = await Post.findById(id).populate("owner");
+  res.render("showPost.ejs", { post });
+});
+
+app.delete("/posts/delete/:id", isLoggedIn, isOwner, async (req, res) => {
+  try {
+    let { id } = req.params;
+    await Post.findByIdAndDelete(id);
+    req.flash("success", "post deleted successfully");
+    res.redirect("/posts");
+  } catch (err) {
+    req.flash("error", err.message);
+    res.redirect("/posts");
+  }
+});
+
+app.get("/posts/edit/:id", isLoggedIn, isOwner, async (req, res) => {
+  let { id } = req.params;
+  let post = await Post.findById(id);
+  res.render("editPost.ejs", { post });
+});
+
+app.put("/posts/edit/:id", isLoggedIn, isOwner, async (req, res) => {
+  try {
+    let { id } = req.params;
+    let { content } = req.body.post;
+    let post = await Post.findById(id);
+    post.content = content;
+    await post.save();
+    req.flash("success", "post updated successfully");
+    res.redirect("/posts");
+  } catch (err) {
+    req.flash("error", err.message);
+    res.redirect("/posts");
+  }
+});
+
+app.get("/profile/edit", isLoggedIn, (req, res) => {
   res.render("editProfile.ejs");
 });
 
 app.post(
-  "/editprofile",
+  "/profile/edit",
   isLoggedIn,
   uploadProfiles.single("profilePhoto"),
   async (req, res) => {
@@ -172,18 +211,6 @@ app.post(
     res.redirect("/editprofile");
   }
 );
-
-app.delete("/deletepost/:id", isLoggedIn, isOwner, async (req, res) => {
-  try {
-    let { id } = req.params;
-    await Post.findByIdAndDelete(id);
-    req.flash("success", "post deleted successfully");
-    res.redirect("/posts");
-  } catch (err) {
-    req.flash("error", err.message);
-    res.redirect("/posts");
-  }
-});
 
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "page not found!"));
