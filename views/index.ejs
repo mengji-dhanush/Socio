@@ -8,24 +8,38 @@
   </head>
   <body>
     <div class="nav">
+      <a href="/posts" style="text-decoration: none;">
       <div class="inner-nav-b">
         <img src="/utilities/SocioLogo.png" alt="Logo" class="logo" />
         <h3>Socio</h3>
       </div>
+    </a>
       <div class="inner-nav-a">
         <form action="/profile/edit" method="get">
-          <button><img
-            src="<%= currUser.profilePhoto.url %>"
-            alt="Profile Picture"
-            class="profile-pic"
-        /></button>
+          <button>
+            <img
+              src="<%= currUser.profilePhoto.url %>"
+              alt="Profile Picture"
+              class="profile-pic"
+            />
+          </button>
         </form>
-        <form action="/posts/new"><button>Create New Post</button></form>
-        <form action="http://localhost:3000/logout">
+    
+        <!-- 🔍 Search Form -->
+        <form action="/posts/search" method="GET" class="search-form">
+          <input type="text" name="q" placeholder="Search..." required />
+          <button type="submit">🔍</button>
+        </form>
+    
+        <form action="/posts/new">
+          <button>Create New Post</button>
+        </form>
+        <form action="/logout">
           <button>Logout</button>
         </form>
       </div>
     </div>
+    
     <% if(success && success.length){ %>
       <div class="success">
         <h3><%=success%></h3>
@@ -36,6 +50,7 @@
         <% } %>
     <div class="container">
       <h1>All Posts</h1>
+      <% if(allPosts && allPosts.length){ %>
       <% for(let post of allPosts) {%>
       <div class="post">
         <div class="post-header">
@@ -59,14 +74,6 @@
           <p><%= post.content %></p>
           <img src="<%=post.image.url%>" alt="Post Image" />
         </div>
-        <div class="post-actions">
-          <button>
-            <img src="/utilities/thumbs-up-icon.png" alt="Like" />Like
-          </button>
-          <button>
-            <img src="/utilities/share-icon.png" alt="Share" /> Share
-          </button>
-        </div>
         <div
           class="comment-form"
           style="
@@ -76,12 +83,7 @@
             width: 100%;
           "
         >
-          <form action="/posts/:id" method="get">
-            <input
-              type="text"
-              style="width: 90%; height: 25px"
-              placeholder="add a comment..."
-            />
+          <form action="/posts/<%= post._id %>" method="get">
             <button>
               <img
                 src="/utilities/comment-icon.png"
@@ -92,6 +94,7 @@
           </form>
         </div>
       </div>
+      <% } %>
       <% } %>
     </div>
     <div class="footer">&copy; Socio</div>

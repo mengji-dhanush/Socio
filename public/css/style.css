@@ -191,3 +191,52 @@ body {
 .comment-form button:hover {
   background-color: #6a0572;
 }
+
+.comment {
+  display: flex;
+  justify-content: space-between;
+  border: white 1px solid;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.comment-delete button {
+  position: relative;
+  top: 50%;
+  transform: translateY(50%);
+  margin-right: 5px;
+}
+
+.comment-delete button:hover {
+  background-color: red;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+}
+
+.search-form input {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  background: #222;
+  color: white;
+  border: 1px solid #512b58;
+}
+
+.search-form button {
+  margin-left: 5px;
+  padding: 6px 10px;
+  border-radius: 5px;
+  background-color: #6a0572;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.search-form button:hover {
+  background-color: #8e068a;
+}

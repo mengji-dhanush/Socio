@@ -5,8 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Post</title>
     <link rel="stylesheet" href="/css/edit-post.css" />
+    <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
+    <div class="nav">
+      <a href="/posts">
+        <div class="inner-nav-b">
+          <img src="/utilities/SocioLogo.png" alt="Logo" class="logo" />
+          <h3>Socio</h3>
+        </div>
+      </a>
+      <div class="inner-nav-a">
+        <form action="/posts/new"><button>Create New Post</button></form>
+        <form action="/logout">
+          <button>Logout</button>
+        </form>
+      </div>
+    </div>
     <% if(success && success.length){ %>
       <div class="success">
         <h3><%=success%></h3>

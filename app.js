@@ -8,6 +8,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
 const Post = require("./models/post.js");
+const Comment = require("./models/comment.js");
 const session = require("express-session");
 const flash = require("connect-flash");
 const ExpressError = require("./ExpressError.js");
@@ -146,10 +147,12 @@ app.post(
   }
 );
 
-app.get("/posts/:id", isLoggedIn, async (req, res) => {
-  let { id } = req.params;
-  let post = await Post.findById(id).populate("owner");
-  res.render("showPost.ejs", { post });
+app.get("/posts/search", async (req, res) => {
+  let query = req.query.q;
+  let posts = await Post.find({
+    content: { $regex: query, $options: "i" },
+  }).populate("owner");
+  res.render("index.ejs", { allPosts: posts });
 });
 
 app.delete("/posts/delete/:id", isLoggedIn, isOwner, async (req, res) => {
@@ -208,9 +211,47 @@ app.post(
     }
     await user.save();
     req.flash("success", "profile updated successfully");
-    res.redirect("/editprofile");
+    res.redirect("/profile/edit");
   }
 );
+
+app.get("/posts/:id/comment/delete/:commentid", async (req, res) => {
+  try {
+    let { id, commentid } = req.params;
+    let comment = await Comment.findById(commentid);
+    console.log(comment);
+    if (req.user._id.toString() === comment.author.toString() && req.user) {
+      await Post.findByIdAndUpdate(id, { $pull: { comments: commentid } });
+      await Comment.findByIdAndDelete(commentid);
+      res.redirect(`/posts/${id}`);
+    }
+  } catch (err) {
+    let { id, commentid } = req.body;
+    console.log(err);
+    res.redirect(`/posts/${id}`);
+  }
+});
+
+app.post("/posts/:id/comment", async (req, res) => {
+  let post = await Post.findById(req.params.id);
+  let newComment = new Comment(req.body.comment);
+  newComment.author = req.user._id;
+  console.log(newComment);
+  post.comments.push(newComment);
+  await post.save();
+  await newComment.save();
+  req.flash("success", "comment added");
+  res.redirect(`/posts/${post._id}`);
+});
+
+app.get("/posts/:id", isLoggedIn, async (req, res) => {
+  let { id } = req.params;
+  let post = await Post.findById(id)
+    .populate({ path: "comments", populate: { path: "author" } })
+    .populate("owner");
+  console.log(post);
+  res.render("showPost.ejs", { post });
+});
 
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "page not found!"));
