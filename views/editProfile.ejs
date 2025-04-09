@@ -8,20 +8,42 @@
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
-    <div class="nav">
-      <a href="/posts">
-        <div class="inner-nav-b">
-          <img src="/utilities/SocioLogo.png" alt="Logo" class="logo" />
+    <div class="nav" style="width: 100%; max-width: 100%; margin: 0; box-sizing: border-box;">
+      <a href="/posts" style="text-decoration: none;">
+        <div class="inner-nav-b" >
           <h3>Socio</h3>
         </div>
       </a>
-      <div class="inner-nav-a">
-        <form action="/posts/new"><button>Create New Post</button></form>
-        <form action="/logout">
-          <button>Logout</button>
-        </form>
-      </div>
-    </div>
+    
+    <div class="inner-nav-a">
+  <form action="/posts/new">
+    <button style="
+      background: linear-gradient(135deg, #b56bdf, #794d93);
+      color: #333; /* Dark text for readability */
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    ">Create New Post</button>
+  </form>
+  <form action="/logout">
+    <button style="
+      background: linear-gradient(135deg, #b56bdf, #794d93);
+      color: #333; /* Dark text for readability */
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    ">Logout</button>
+  </form>
+</div>
+  </div>
+    
+      
     <% if(success && success.length){ %>
       <div class="success">
         <h3><%=success%></h3>
@@ -52,7 +74,7 @@
         <h4>Upload Profile Picture</h4>
         <input type="file" name="profilePhoto">
         <br /><br />
-        <button class="btn" type="submit">Save Changes</button>
+        <button class="btn" type="submit" id="save-changes">Save Changes</button>
       </form>
       </div>
     </div>
