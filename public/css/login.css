@@ -1,12 +1,29 @@
+
 body {
-  background: linear-gradient(135deg, #2c003e, #6a0572);
-  color: #fff;
+  background: linear-gradient(135deg, #ff6ec4, #7873f5, #4ade80, #facc15); 
+  color: #333;
   font-family: sans-serif;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin: 0;
+  padding: 0;
+  background-size: 400% 400%; 
+  animation: gradientAnimation 15s ease infinite; 
+}
+
+@keyframes gradientAnimation {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
 }
 
 .logo {
@@ -17,18 +34,22 @@ body {
   left: 20px;
   cursor: pointer;
 }
+
 .container h5 {
   text-align: center;
   font-family: sans-serif;
   font-weight: 600;
+  color: #555; 
 }
+
 .container {
-  background-color: #1a1a1a;
-  padding: 20px;
-  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 30px;
+  border-radius: 15px;
   width: 400px;
-  height: 350px;
+  max-width: 90%;
   position: relative;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); 
 }
 
 .container .close-button {
@@ -36,56 +57,69 @@ body {
   top: 10px;
   right: 10px;
   cursor: pointer;
+  color: #777; 
 }
 
 .container h1 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  color: #333; 
 }
 
 .container form input,
 .container form select {
-  width: calc(100% - 22px);
-  padding: 10px;
+  width: calc(100% - 24px);
+  padding: 12px;
   margin-bottom: 15px;
-  border: 1px solid #512b58;
-  background-color: #333;
-  color: #fff;
-  border-radius: 5px;
+  border: 1px solid #ddd; 
+  background-color: #f0f0f0;
+  color: #333;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .container form input:focus,
 .container form select:focus {
   outline: none;
-  border-color: #512b58;
+  border-color: #8e44ad; 
+  box-shadow: 0 0 5px rgba(142, 68, 173, 0.5); 
 }
 
 .container form button,
 .container .signup-btn {
   width: 100%;
-  padding: 10px;
-  background-color: #444;
+  padding: 12px;
+  background-color: #8e44ad; 
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1em;
-  transition: ease 0.3s;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .container .forgot-btn {
-  margin-bottom: 15px;
-  background-color: rgb(41, 41, 41);
+  margin-bottom: 20px;
+  background-color: #e0e0e0; 
   border-radius: 20px;
-  transition: ease 0.3s;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
-.container form button:hover {
-  background-color: #555;
-  transition: ease 0.3s;
+
+.container form button:hover,
+.container .signup-btn:hover,
+.container .forgot-btn:hover {
+  background-color: #7a3580; 
+  transform: translateY(-2px);
 }
+
 .container form a {
-  color: white;
+  color: #777; 
   padding: 10px;
   text-decoration: none;
   display: block;
+  transition: color 0.3s ease;
+}
+
+.container form a:hover {
+  color: #333; 
 }

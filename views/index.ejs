@@ -1,120 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Socio</title>
-    <link rel="stylesheet" href="/css/style.css" />
-  </head>
-  <body>
-    <div class="nav">
-      <a href="/posts" style="text-decoration: none;">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Socio</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <div class="nav">
+    <a href="/posts" style="text-decoration: none;">
       <div class="inner-nav-b">
-        <img src="/utilities/SocioLogo.png" alt="Logo" class="logo" />
+        <img src="/utilities/SocioLogo.png" alt="Logo" class="logo">
         <h3>Socio</h3>
       </div>
     </a>
-      <div class="inner-nav-a">
-        <form action="/profile/edit" method="get">
-          <button>
-            <img
-              src="<%= currUser.profilePhoto.url %>"
-              alt="Profile Picture"
-              class="profile-pic"
-            />
-          </button>
-        </form>
-    
-        <!-- 🔍 Search Form -->
-        <form action="/posts/search" method="GET" class="search-form">
-          <input type="text" name="q" placeholder="Search..." required />
-          <button type="submit">🔍</button>
-        </form>
-    
-        <form action="/posts/new">
-          <button>Create New Post</button>
-        </form>
-        <form action="/logout">
-          <button>Logout</button>
-        </form>
-      </div>
+    <div class="inner-nav-a">
+  
+      <form action="/profile/edit" method="get">
+         <button style="
+            height: 35px;          /* Set button height */
+            width: 35px;           /* Set button width */
+            border-radius: 50%;    /* Make button circular */
+            padding: 0;            /* Remove default padding */
+            border: none;          /* Remove default border */
+            overflow: hidden;      /* Hide image overflow */
+            display: block;        /* Or inline-block */
+            cursor: pointer;
+            vertical-align: middle; /* Align button vertically if needed */
+         ">
+           <img src="<%= currUser.profilePhoto.url %>"
+                alt="Profile Picture" 
+                class="profile-pic" 
+                style="
+                  height: 100%;        /* Fill the button height */
+                  width: 100%;         /* Fill the button width */
+                  object-fit: cover;   /* Cover the area, maintain aspect ratio */
+                  display: block;      /* Remove extra space below image */
+                ">
+         </button>
+       </form>
+  
+      <form action="/posts/search" method="GET" class="search-form">
+        <input type="text" name="q" placeholder="Search..." required="">
+        <button type="submit">🔍</button>
+      </form>
+  
+      <form action="/posts/new">
+        <button style="
+          background: linear-gradient(135deg, #b56bdf, #794d93);
+          color: #333; /* Dark text for readability */
+          padding: 10px 15px;
+          border: none;
+          border-radius: 5px;
+          font-size: 16px;
+          cursor: pointer;
+          transition: background 0.3s ease;
+        ">Create New Post</button>
+      </form>
+  
+      <form action="/logout">
+        <button style="
+          background: linear-gradient(135deg, #b56bdf, #794d93);
+          color: #333; /* Dark text for readability */
+          padding: 10px 15px;
+          border: none;
+          border-radius: 5px;
+          font-size: 16px;
+          cursor: pointer;
+          transition: background 0.3s ease;
+        ">Logout</button>
+      </form>
+  
     </div>
-    
-    <% if(success && success.length){ %>
-      <div class="success">
-        <h3><%=success%></h3>
+  </div>
+
+  <% if(success && success.length){ %>
+    <div class="success">
+      <h3>
+        <%=success%>
+      </h3>
       <% } %>
-      <% if(error && error.length){ %>
-        <div class="error">
-          <h3><%=error%></h3>
-        <% } %>
-    <div class="container">
-      <h1>All Posts</h1>
-      <% if(allPosts && allPosts.length){ %>
-      <% for(let post of allPosts) {%>
-      <div class="post">
-        <div class="post-header">
-          <div class="profile">
-            <img src="<%= post.owner.profilePhoto.url %>" alt="Profile Picture" />
-            <h3><%= post.owner.username %></h3>
-          </div>
-          <div class="dropdown">
-            <button class="dropdown-btn" onclick="toggleMenu('menu-<%= post._id %>')">
-              &#8942;
-            </button>
-            <div id="menu-<%= post._id %>" class="dropdown-content">
-              <form action="/posts/edit/<%= post._id %>" method="get"><button>Edit post</button></form>
-              <form action="/posts/delete/<%= post._id %>?_method=DELETE" method="post">
-                <button>Delete Post</button>
-              </form>
-            </div>
-          </div>          
-        </div>
-        <div class="post-content">
-          <p><%= post.content %></p>
-          <img src="<%=post.image.url%>" alt="Post Image" />
-        </div>
-        <div
-          class="comment-form"
-          style="
+        <% if(error && error.length){ %>
+          <div class="error">
+            <h3>
+              <%=error%>
+            </h3>
+            <% } %>
+              <div class="container">
+                <h1>All Posts</h1>
+                <% if(allPosts && allPosts.length){ %>
+                  <% for(let post of allPosts) {%>
+                    <div class="post">
+                      <div class="post-header">
+                        <div class="profile">
+                          <img src="<%= post.owner.profilePhoto.url %>" alt="Profile Picture" />
+                          <h3>
+                            <%= post.owner.username %>
+                          </h3>
+                        </div>
+                        <div class="dropdown">
+                          <button class="dropdown-btn" onclick="toggleMenu('menu-<%= post._id %>')">
+                            &#8942;
+                          </button>
+                          <div id="menu-<%= post._id %>" class="dropdown-content">
+                            <form action="/posts/edit/<%= post._id %>" method="get"><button>Edit post</button></form>
+                            <form action="/posts/delete/<%= post._id %>?_method=DELETE" method="post">
+                              <button>Delete Post</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="post-content">
+                        <p>
+                          <%= post.content %>
+                        </p>
+                        <img src="<%=post.image.url%>" alt="Post Image" />
+                      </div>
+                      <div class="comment-form" style="
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
-          "
-        >
-          <form action="/posts/<%= post._id %>" method="get">
-            <button>
-              <img
-                src="/utilities/comment-icon.png"
-                alt="Comment"
-                style="height: 25px"
-              />
-            </button>
-          </form>
-        </div>
-      </div>
-      <% } %>
-      <% } %>
-    </div>
-    <div class="footer">&copy; Socio</div>
-    <script>
-      function toggleMenu(id) {
-  document.getElementById(id).classList.toggle("show");
-}
+          ">
+                        <form action="/posts/<%= post._id %>" method="get">
+                          <button>
+                            <img src="/utilities/comment-icon.png" alt="Comment" style="height: 25px" />
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                    <% } %>
+                      <% } %>
+              </div>
+              <div class="footer">&copy; Socio</div>
+              <script>
+                function toggleMenu(id) {
+                  document.getElementById(id).classList.toggle("show");
+                }
 
-window.onclick = function (event) {
-  if (!event.target.matches(".dropdown-btn")) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    for (var i = 0; i < dropdowns.length; i++) {
-      if (dropdowns[i].classList.contains("show")) {
-        dropdowns[i].classList.remove("show");
-      }
-    }
-  }
-};
+                window.onclick = function (event) {
+                  if (!event.target.matches(".dropdown-btn")) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    for (var i = 0; i < dropdowns.length; i++) {
+                      if (dropdowns[i].classList.contains("show")) {
+                        dropdowns[i].classList.remove("show");
+                      }
+                    }
+                  }
+                };
 
-      //dropdown doesnt work for all posts.(Id to all post is same)
-    </script>
-  </body>
+                
+              </script>
+</body>
+
 </html>

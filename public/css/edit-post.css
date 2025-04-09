@@ -1,34 +1,120 @@
+
+.navbar {
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 20px;
+}
+
+.title {
+  color: #8e44ad;
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-right: 20px;
+}
+
+.nav-buttons {
+  display: flex;
+  margin-left: auto;
+}
+
+.nav-buttons button {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  margin-left: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  font-size: 1em;
+  font-weight: 500;
+}
+
+.nav-buttons button:hover {
+  background-color: #e0e0e0;
+  border-color: #bbb;
+  transform: translateY(-2px);
+}
+
+.nav-buttons button.active {
+  background-color: #8e44ad;
+  color: #fff;
+  border: none;
+}
+
+
+.nav-buttons button.create-post {
+  background-color: #8e44ad;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+}
+
+.nav-buttons button.create-post:hover {
+  background-color: #7a3580;
+  transform: translateY(-2px);
+}
+
+.nav-buttons button.logout {
+  background-color: #ff6666;
+  color: #fff;
+  border: none;
+}
+
+.nav-buttons button.logout:hover {
+  background-color: #ff4d4d;
+  transform: translateY(-2px);
+}
+
+  
 body {
   background: linear-gradient(135deg, #2c003e, #6a0572);
-  color: #fff;
-  font-family: sans-serif;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.logo {
-  height: 35px;
-  width: 35px;
-  position: absolute;
-  top: 40px;
-  left: 20px;
-  cursor: pointer;
-}
 .container h5 {
   text-align: center;
-  font-family: sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 600;
+  color: #ccc;
 }
+
 .container {
-  background-color: #1a1a1a;
-  padding: 20px;
-  border-radius: 10px;
+  background-color: rgba(245, 245, 220, 0.85);
+  padding: 30px;
+  border-radius: 15px;
   width: 400px;
-  height: 400px;
+  max-width: 90%;
   position: relative;
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 20px;
+}
+
+.container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
 }
 
 .container .close-button {
@@ -36,51 +122,63 @@ body {
   top: 10px;
   right: 10px;
   cursor: pointer;
+  color: #888;
+  font-size: 1.2em;
+  transition: color 0.3s ease;
+}
+
+.container .close-button:hover {
+  color: #bbb;
 }
 
 .container h1 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  color: #333;
+  font-weight: 600;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 10px;
 }
 
 .container form input,
 .container form select,
 .container form textarea {
   width: calc(100% - 22px);
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #512b58;
-  background-color: #333;
-  color: #fff;
-  border-radius: 5px;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #333;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .container form input:focus,
-.container form select:focus {
+.container form select:focus,
+.container form textarea:focus {
   outline: none;
-  border-color: #512b58;
+  border-color: #7a3580;
+  box-shadow: 0 0 5px rgba(122, 53, 128, 0.5);
 }
 
 .container form button,
-.container .singup-btn {
+.container .singup-btn,
+.container .forgot-btn {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background-color: #444;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1em;
-  transition: ease 0.3s;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-bottom: 10px;
 }
 
-.container .forgot-btn {
-  margin-bottom: 15px;
-  background-color: rgb(41, 41, 41);
-  border-radius: 20px;
-  transition: ease 0.3s;
-}
-.container form button:hover {
+.container form button:hover,
+.container .singup-btn:hover,
+.container .forgot-btn:hover {
   background-color: #555;
-  transition: ease 0.3s;
+  transform: scale(1.02);
 }
